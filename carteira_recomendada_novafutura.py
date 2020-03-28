@@ -4,7 +4,8 @@ import datetime as dt
 from pylab import mpl, plt
 import pandas_datareader as web
 
-#SETUP
+# SETUP
+
 plt.style.use('seaborn')
 mpl.rcParams['font.family'] = 'serif'
 %matplotlib inline
@@ -23,6 +24,7 @@ for ticker in tickers:
 database.corr()
 
 # CALCULATING THE LOG RETURNS AND CREATING A CORRELATION TABLE
+
 db_ret = pd.DataFrame()
 for ticker in tickers:
     db_ret['{}'.format(ticker)] = np.log(database['{}'.format(ticker)]/database['{}'.format(ticker)].shift(1))
@@ -35,16 +37,12 @@ db_ret.corr()
 fig, ax = plt.subplots()
 im = ax.imshow(db_ret.corr(), cmap='hot')
 
-
 ax.set_xticks(np.arange(len(tickers)))
 ax.set_yticks(np.arange(len(tickers)))
-
 ax.set_xticklabels(tickers)
 ax.set_yticklabels(tickers)
 
-
-plt.setp(ax.get_xticklabels(), rotation=90, ha="right",
-         rotation_mode="anchor")
+plt.setp(ax.get_xticklabels(), rotation=90, ha="right", rotation_mode="anchor")
 
 ax.set_title("Log Returns Correlation Map - Nova Futura")
 plt.figure(figsize=(100,60))
